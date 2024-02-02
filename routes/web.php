@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HelloController;
+use App\Http\Controllers\TempController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,4 @@ Route::get('/', function () {
 });
 
 Route::get('/hello', [HelloController::class, 'show']);
+Route::get('/temp', [TempController::class, 'show']);
