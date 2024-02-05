@@ -9,10 +9,10 @@ class HelloController extends Controller
     /**
      * Show the profile for a given user.
      */
-    public function show()
+    public function show($arg = '')
     {
         return response()->json([
-            'hello' => 'ok',            
+            'hello' => $arg,            
         ]);    
     }
 }

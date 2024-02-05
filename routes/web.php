@@ -20,5 +20,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/hello', [HelloController::class, 'show']);
+Route::get('/hello/{arg}', [HelloController::class, 'show']);
 Route::get('/temp', [TempController::class, 'show']);
