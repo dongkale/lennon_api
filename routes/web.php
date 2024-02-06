@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HelloController;
 use App\Http\Controllers\TempController;
+use App\Http\Controllers\PagesController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +18,21 @@ use App\Http\Controllers\TempController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/hello/{arg}', [HelloController::class, 'show']);
 Route::get('/temp', [TempController::class, 'show']);
+
+// Route::group(['namespace' => 'App\Http\Controllers'], function () {
+//     Route::get('/', [PagesController::class, 'index'])->name('pages.index');
+//     Route::get('/about', [PagesController::class, 'about'])->name('pages.about');
+// });
+
+// Route::get('/dashboard', [DashboardController::class, 'index']);
+
+Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/dashboard/age', [DashboardController::class, 'age']);
+Route::get('/dashboard/gender', [DashboardController::class, 'gender']);
+Route::get('/dashboard/geo', [DashboardController::class, 'geo']);
