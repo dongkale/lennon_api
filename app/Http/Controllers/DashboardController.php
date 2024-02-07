@@ -21,15 +21,27 @@ class DashboardController extends Controller {
     }
 
     public function age() {
-        return view('dashboard', ['menu' => 'age']);
+        $select_data = DB::table('member_table')
+            ->select('mb_id', 'address', 'mb_tell')
+            ->get();
+
+        return view('dashboard', ['menu' => 'age', 'lists' => $select_data]);
     }
 
     public function gender() {
-        return view('dashboard', ['menu' => 'gender']);
+        $select_data = DB::table('member_table')
+            ->select('mb_id', 'address', 'mb_tell')
+            ->get();
+
+        return view('dashboard', ['menu' => 'gender', 'lists' => $select_data]);
     }
 
     public function geo() {
-        return view('dashboard', ['menu' => 'geo']);
+        $select_data = DB::table('member_table')
+            ->select('mb_id', 'address', 'mb_tell')
+            ->get();
+
+        return view('dashboard', ['menu' => 'geo', 'lists' => $select_data]);
     }
 
     public function listsExport(Request $request) {

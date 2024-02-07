@@ -55,10 +55,7 @@
         </div>
     </div>
     <div class="col-sm-4">
-        <div class="well well-lg">
-            {{-- <p>Text</p> 
-            <p>Text</p> 
-            <p>Text</p>  --}}
+        <div class="well well-lg">            
             <table class="table table-borderd">
                 <thead>
                     <tr align="center">
@@ -82,7 +79,7 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <div class="well well-lg">
             <p>Text</p> 
             <button type="button" id="listsExportBtn" class="btn btn-secondary ml-2" onclick="listsExportProc()">EXPORT</button>
@@ -94,10 +91,13 @@
             <canvas id="myChart"></canvas> 
         </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-4">
         <div class="well well-lg">
             <p>Text</p>
-            <div id="chart"></div> 
+            <div id="apex_chart" ></div> 
+            <button type="button" class="btn btn-secondary ml-2" onclick="appendItem()">Append</button>
+            <button type="button" class="btn btn-secondary ml-2" onclick="popItem()">Pop</button>
+            <button type="button" class="btn btn-secondary ml-2" onclick="refreshItem()">Refesh</button>
         </div>
     </div>
     <div class="col-sm-3">
@@ -146,14 +146,14 @@ $(document).ready( function() {
     });
 
     var menu = "{{$menu}}";
-
-    // console.log(menu);
+    
+    settingMenu();
 
     selectMenu(menu);
 
     drawChart();
 
-    drawApexChart(document.querySelector('#chart'));
+    drawApexChart(document.querySelector('#apex_chart'));
 
     drawCanvasChart();
 
@@ -164,7 +164,7 @@ $(document).ready( function() {
     // });
 });
 
-// 
+
 // $(function(){    
 //     $('.list-group li').click(function(e) {
 //         // e.preventDefault()
@@ -175,7 +175,18 @@ $(document).ready( function() {
 //         $that.addClass('active');
 //     });    
 // })
-// 
+
+
+function settingMenu() {
+    $('.list-group li').click(function(e) {
+        // e.preventDefault()
+
+        $that = $(this);
+
+        $that.parent().find('li').removeClass('active');
+        $that.addClass('active');
+    });    
+}
 
 function selectMenu(select) {
     $('.list-group li').each(function(index, item) {                
@@ -272,26 +283,192 @@ function drawChart() {
     );
 }
 
+let apex_chart; 
 
 function drawApexChart(draw_id) {
+    // var options = {
+    //     chart: {
+    //         type: 'line',
+    //         width: 230,
+    //         height: 320,
+    //         zoom: {
+    //             enabled: false
+    //         },           
+    //     },
+    //     markers: {
+    //             size: 1,
+    //     },
+    //     series: [{
+    //         name: 'sales',
+    //         data: [30,40,35,50,49,60,70,91,125]        
+    //     }],
+    //     xaxis: {
+    //         categories: [1991,1992,1993,1994,1995,1996,1997, 1998,1999]
+    //     }
+    // }
+
     var options = {
+        series: [44, 55, 41, 17, 15],
+        labels: ['Apple', 'Mango', 'Orange', 'Watermelon', 'Strawberry'],      
+        dataLabels: {
+            enabled: true,
+            formatter: function (val) {
+                return Math.floor(val) + "%"
+            }
+        }, 
+        plotOptions: {
+            pie: {
+                donut: {
+                    size: '15%'
+                }
+            }
+        },
+        chart: {
+            type: 'donut',
+            width: 320,
+            height: 400,
+            fontFamily: 'Helvetica, Arial, sans-serif'
+        },
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 200
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }]
+    };
 
-    chart: {
-        type: 'line'
-    },
-    series: [{
-        name: 'sales',
-        data: [30,40,35,50,49,60,70,91,125]
-    }],
-    xaxis: {
-        categories: [1991,1992,1993,1994,1995,1996,1997, 1998,1999]
-    }
-    }
 
-    var chart = new ApexCharts(draw_id, options);
+     var options2 = {
+        series: [44, 55, 13, 33, 78],
+        labels: ['Apple', 'Mango', 'Orange', 'Watermelon', 'Strawberry'],      
+        dataLabels: {
+            enabled: true,
+            formatter: function (val) {
+                return Math.floor(val) + "%"
+            }
+        }, 
+        chart: {
+            width: 380,
+            type: 'donut',
+        },        
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 200
+                },
+                legend: {
+                    show: false
+                }
+            }
+        }],
+        legend: {
+            position: 'right',
+            offsetY: 0,
+            height: 230,
+        }
+    };
+    
+    apex_chart = new ApexCharts(draw_id, options2);
 
-    chart.render();
+    apex_chart.render();
+
+    // chart = new ApexCharts(draw_id, options2);
+
+    // chart.render();
+   
+    // var series = chart.w.globals.series.slice();
+    // series.push(Math.floor(Math.random() * (100 - 1 + 1)) + 1)
+    // //chart.updateSeries(series);
+
+    // var labels = chart.w.globals.labels.slice();
+    // labels.push('123');
+    
+    // chart.updateOptions({
+    //     series: series,
+    //     labels: labels
+    // })        
 }
+
+function appendItem() {
+    var series = apex_chart.w.globals.series.slice();
+    series.push(Math.floor(Math.random() * (100 - 1 + 1)) + 1)
+    
+    var labels = apex_chart.w.globals.labels.slice();
+
+    rString1 = randomStringEx(5, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+    // rString2 = randomString(5);
+
+    labels.push(rString1);
+    
+    apex_chart.updateOptions({
+        series: series,
+        labels: labels
+    })        
+}
+
+function popItem() {
+    var series = apex_chart.w.globals.series.slice();
+    series.pop();
+    
+    var labels = apex_chart.w.globals.labels.slice();    
+    labels.pop();
+    
+    apex_chart.updateOptions({
+        series: series,
+        labels: labels
+    });        
+}
+
+function refreshItem() {
+    apex_chart.updateOptions({
+    });        
+}
+
+function randomStringEx(length, chars) {
+    var result = '';
+    
+    for (var i = length; i > 0; --i) {
+        result += chars[Math.floor(Math.random() * chars.length)];
+    }
+
+    return result;
+}
+
+function randomString(length) {
+    return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
+}
+
+// function appendData(chart) {
+//     var arr = chart.w.globals.series.slice()
+//     arr.push(Math.floor(Math.random() * (100 - 1 + 1)) + 1)
+
+//     var labels = chart.w.globals.labels.slice();
+//     labels.push('123');
+    
+//     return arr;
+// }
+      
+// function removeData() {
+//   var arr = chart.w.globals.series.slice()
+//   arr.pop()
+//   return arr;
+// }
+
+// function randomize() {
+//   return chart.w.globals.series.map(function() {
+//       return Math.floor(Math.random() * (100 - 1 + 1)) + 1
+//   })
+// }
+
+// function reset() {
+//   return options.series
+// }
 
 function drawCanvasChart() {
     var chart = new CanvasJS.Chart("chartContainer", {

@@ -18,9 +18,9 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::get('/hello/{arg}', [HelloController::class, 'show']);
 Route::get('/temp', [TempController::class, 'show']);
