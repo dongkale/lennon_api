@@ -33,6 +33,9 @@ Route::get('/temp', [TempController::class, 'show']);
 // Route::get('/dashboard', [DashboardController::class, 'index']);
 
 Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/dashboard/dashboard', [DashboardController::class, 'index']);
 Route::get('/dashboard/age', [DashboardController::class, 'age']);
 Route::get('/dashboard/gender', [DashboardController::class, 'gender']);
 Route::get('/dashboard/geo', [DashboardController::class, 'geo']);
+
+Route::post('/dashboard/listsExport', [DashboardController::class, 'listsExport']);
