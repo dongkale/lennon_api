@@ -109,8 +109,8 @@
     
 </div>    
 
-<form id="listsExportForm" method="post" action="/dashboard/listsExport">
-    @csrf    
+<form id="listsExportForm" method="POST" action="/dashboard/listsExport">
+    @csrf
 </form>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
