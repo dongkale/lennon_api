@@ -54,4 +54,13 @@ class TestController extends Controller {
 
         return response()->json([$response_data]);
     }
+
+    public function list(Request $request) {
+        $select_data = DB::table('member_table')
+            ->select('*')
+            ->get()
+            ->toArray();
+
+        return response()->json($select_data);
+    }
 }
