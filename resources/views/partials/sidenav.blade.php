@@ -1,4 +1,4 @@
-<div class="col-sm-3 sidenav hidden-xs">
+<div class="col-sm-2 sidenav hidden-xs">
     <h2><a href="{{ url('/dashboard') }}" data-menu="dashboard">LENNON</a></h2>
     <ul class="list-group nav nav-pills nav-stacked">
         <li class="menu-item"><a href="{{ url('/dashboard') }}" data-menu="dashboard">Dashboard</a></li>

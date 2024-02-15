@@ -30,7 +30,7 @@
 <div class="container-fluid">
     <div class="row content">
         @include('partials.sidenav')
-        <div class="col-sm-9">
+        <div class="col-sm-10">
             @yield('content')
         </div>
     </div>

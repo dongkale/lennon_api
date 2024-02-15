@@ -622,12 +622,34 @@ function drawApexChart4(draw_id) {
             zoom: {
                 enabled: false
             },
+            events: {
+                click: function(event, chartContext, config) {
+                    // The last parameter config contains additional information like `seriesIndex` and `dataPointIndex` for cartesian charts
+                    // console.log(chartContext);
+                    // console.log(config);
+                    console.log(config.config.series[config.seriesIndex])
+                    console.log(config.config.series[config.seriesIndex].name)
+                    console.log(config.config.series[config.seriesIndex].data[config.dataPointIndex])                    
+                }
+            }
         },
         stroke: {
             width: [3, 3],
             // curve: 'stepline',
             //dashArray: [3, 3]
         },
+        // legend: {
+        //   tooltipHoverFormatter: function(val, opts) {
+        //     return val + ' - <strong>' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + '</strong>'
+        //   }
+        // },
+        // grid: {
+        //   borderColor: '#e7e7e7',
+        //   row: {
+        //     colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+        //     opacity: 0.5
+        //   },
+        // },
         markers: {
             size: 1,
         },
@@ -809,13 +831,23 @@ function drawHighChart() {
 
     Highcharts.chart('container', {
         chart: {
-            type: 'line'
+            type: 'line',
+            events: {
+                redraw: function(event) {
+                    // 클릭 이벤트가 발생했을 때 실행되는 함수
+                    console.log('Clicked', event);
+                    
+                    // event 객체를 통해 클릭 위치 등의 정보에 접근할 수 있습니다.
+                    // console.log('Clicked X:', event.xAxis[0].value);
+                    // console.log('Clicked Y:', event.yAxis[0].value);
+                }        
+            }
         },
         title: {
             text: 'Website Traffic'
         },
         xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']            
         },
         yAxis: {
             title: {
@@ -828,7 +860,31 @@ function drawHighChart() {
         }, {
             name: '2024',
             data: [1200, 1400, 1600, 1900, 2100, 2300, 2500, 2600, 2700, 2500, 2400, 2300]
-        }]
+        }],
+        plotOptions: {
+            series: {
+                cursor: 'pointer',
+                events: {
+                    click: function (event) {
+                        console.log(event);
+                        console.log(this);
+                        console.log(`name: ${this.name}`);
+                        console.log(event.point.options.y);             
+                        // console.log('Clicked X:', this.xAxis[0].value);
+                        // console.log('Clicked Y:', this.yAxis[0].value);       
+                    }
+                }
+                // ,
+                // point: {
+                //     events: {
+                //         click: function(event) {
+                //             console.log('point event')
+                //             console.log(event);                    
+                //         }
+                //     }
+                // }
+            }
+        },
     });
 }
 
