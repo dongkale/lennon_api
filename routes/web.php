@@ -18,9 +18,9 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/hello/{arg}', [HelloController::class, 'show']);
 Route::get('/temp', [TempController::class, 'show']);
@@ -32,6 +32,7 @@ Route::get('/temp', [TempController::class, 'show']);
 
 // Route::get('/dashboard', [DashboardController::class, 'index']);
 
+Route::get('/', [DashboardController::class, 'index']);
 Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::get('/dashboard/dashboard', [DashboardController::class, 'index']);
 Route::get('/dashboard/age', [DashboardController::class, 'age']);
