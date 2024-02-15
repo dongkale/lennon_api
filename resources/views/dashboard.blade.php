@@ -623,6 +623,14 @@ function drawApexChart4(draw_id) {
                 enabled: false
             },
         },
+        stroke: {
+            width: [3, 3],
+            // curve: 'stepline',
+            //dashArray: [3, 3]
+        },
+        markers: {
+            size: 1,
+        },
         title: {
             text: '월별 웹 사용량',
             align: 'left'
