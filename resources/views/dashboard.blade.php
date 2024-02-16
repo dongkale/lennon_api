@@ -5,8 +5,22 @@
 @section('content')
 
 <div class="well well-lg">
-    <h4>Dashboard</h4>
-    <p>Some text..</p>
+    {{-- <h4>Dashboard</h4>
+    <p>Some text..</p> --}}
+    <div class="row">
+        <div class="col-sm-3">
+            Dashboard
+        </div>
+        <div class="col-sm-3">
+            Some text.. 
+        </div>
+        <div class="col-sm-3">
+            Some text.. 
+        </div>
+        <div class="col-sm-3">
+            Some text.. 
+        </div>        
+    </div>
 </div>
 
 <div class="row">
@@ -233,7 +247,7 @@ function viewList() {
         type: 'GET',
         dataType: 'json',        
         success: function(data) {
-            console.log(data);
+            // console.log(data);
             var html = '';            
 
             $("#user-list").find("tbody").children().remove();
@@ -625,18 +639,51 @@ function drawApexChart4(draw_id) {
             events: {
                 click: function(event, chartContext, config) {
                     // The last parameter config contains additional information like `seriesIndex` and `dataPointIndex` for cartesian charts
-                    // console.log(chartContext);
-                    // console.log(config);
+                    // console.log(event);                    
+                    console.log(chartContext);
+                    console.log(config.config);
                     console.log(config.config.series[config.seriesIndex])
                     console.log(config.config.series[config.seriesIndex].name)
                     console.log(config.config.series[config.seriesIndex].data[config.dataPointIndex])                    
-                }
+                    // let ID = config.config.xaxis.categories[config.dataPointIndex];
+                    // console.log(config.config.xaxis);
+                    // console.log(config.config.labels);
+                },
+                // dataPointSelection: function(event, chartContext, config) {        
+                //    console.log(`===`);
+                // }
+            }
+        },
+        dataLabels: {
+            enabled: true,
+            formatter: function (val, opts) {
+                return val;
+            },
+            style: {
+                fontSize: '8px',
+                fontFamily: 'Helvetica, Arial, sans-serif',
+                fontWeight: 'bold',
+                colors: undefined
+            },
+            background: {
+                enabled: true,
+                foreColor: '#fff',
             }
         },
         stroke: {
             width: [3, 3],
             // curve: 'stepline',
             //dashArray: [3, 3]
+        },
+        grid: {
+            borderColor: '#e7e7e7',
+            row: {
+                colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                opacity: 0.5
+            },
+            // position: 'front',
+            // borderColor: '#111',
+            // strokeDashArray: 1,
         },
         // legend: {
         //   tooltipHoverFormatter: function(val, opts) {
@@ -658,13 +705,30 @@ function drawApexChart4(draw_id) {
             align: 'left'
         },
         xaxis: {
-            categories: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+            categories: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+            // lines: {
+            //     show: true,
+            // }
+            // events: {
+            //     click: function (e) { console.log(e); }
+            // }
         },
         yaxis: {
             title: {
                 text: '방문자 수'
-            }
-        }
+            },
+            // lines: {
+            //     show: true,
+            // }
+        },
+        // active: {
+        //     allowMultipleDataPointsSelection: true,
+        // },
+        // events:{
+        //     dataPointSelection: function(event, chartContext, config) {
+        //         console.log(event);
+        //     }
+        // }
     };
 
     var chart = new ApexCharts(draw_id, options);
@@ -847,7 +911,15 @@ function drawHighChart() {
             text: 'Website Traffic'
         },
         xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']            
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            plotBands: [{
+                events: {                    
+                    click: function(e) {
+                        console.log('Clicked');
+                        console.log(e);
+                    }
+                }
+            }],     
         },
         yAxis: {
             title: {
@@ -870,19 +942,21 @@ function drawHighChart() {
                         console.log(this);
                         console.log(`name: ${this.name}`);
                         console.log(event.point.options.y);             
+                        
                         // console.log('Clicked X:', this.xAxis[0].value);
-                        // console.log('Clicked Y:', this.yAxis[0].value);       
+                        // console.log('Clicked Y:', this.yAxis[0].value);                               
+                    }
+                },
+                point: {
+                    events: {
+                        click: function(event) {
+                            // console.log('point event')
+                            console.log(event);
+                            console.log(this);
+                            console.log(`category: ${this.category}, name: ${this.name}, x: ${this.x}, y: ${this.y}`);             
+                        }
                     }
                 }
-                // ,
-                // point: {
-                //     events: {
-                //         click: function(event) {
-                //             console.log('point event')
-                //             console.log(event);                    
-                //         }
-                //     }
-                // }
             }
         },
     });
