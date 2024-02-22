@@ -4,24 +4,31 @@
 
 @section('content')
 
-<div class="well well-lg">
-    {{-- <h4>Dashboard</h4>
-    <p>Some text..</p> --}}
+<div class="well well-lg">    
     <div class="row">
-        <div class="col-sm-3">
-            Dashboard
+        <div class="col-sm-10">   
+            <div style="text-align:left">Left</div>
+            <div style="text-align:right">Right1</div>
+            <div style="text-align:right">Right2</div>
         </div>
-        <div class="col-sm-3">
-            Some text.. 
+    </div>
+</div>            
+
+<hr class="mt-2 mb-3"/>
+
+
+{{-- <div class="well well-lg">    
+    <div class="row">
+        <div class="col-sm-3">            
         </div>
-        <div class="col-sm-3">
-            Some text.. 
+        <div class="col-sm-3">            
         </div>
-        <div class="col-sm-3">
-            Some text.. 
+        <div class="col-sm-3">            
+        </div>
+        <div class="col-sm-3">            
         </div>        
     </div>
-</div>
+</div> --}}
 
 <div class="row">
     <div class="col-sm-3">
